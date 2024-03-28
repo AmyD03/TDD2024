@@ -1,7 +1,7 @@
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-
+from selenium.webdriver.common.keys import Keys
+import time
+from selenium.webdriver.common.by import By
 import unittest
 
 class NewVisitorTest(unittest.TestCase):
@@ -16,14 +16,28 @@ class NewVisitorTest(unittest.TestCase):
         # Edith has heard about a cool new online to-do app. She goes
         # to check out its homepage
         self.browser.get('http://127.0.0.1:8000/')
-        print(self.browser.title)  # 输出页面标题
-        # 显式等待直到页面标题包含 'To-Do'
-        WebDriverWait(self.browser, 10).until(
-            EC.title_contains('To-Do')
-        )
         
       # She notices the page title and header mention to-do lists
-        self.assertIn('To-Do', self.browser.title),"browser title was " + self.browser.title
+        self.assertIn('To-Do', self.browser.title)
+        header_text=self.browser.find_element(By.TAG_NAME,'h1').text
+        self.assertIn('To-Do',header_text)
+
+        inputbox=self.browser.find_element(By.ID,'id_new_item')
+        self.assertEqual(
+            inputbox.get_attribute('placeholder'),
+            'Enter a to-do item'
+        )
+
+        inputbox.send_keys('Buy flowers')
+
+        inputbox.send_keys(Keys.ENTER)
+        time.sleep(1)
+
+        table = self.browser.find_element(By.ID,'id_list_table')
+        rows = table.find_elements(By.TAG_NAME,'tr')
+        self.assertIn('1: Buy flowers',[row.text for row in rows])
+        
+
         self.fail('Finish the test!')
 
 if __name__ == '__main__':
