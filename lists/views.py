@@ -14,8 +14,7 @@ def home_page(request):
 
 def view_list(request,list_id):
     list_user = List.objects.get(id=list_id)
-    items = Item.objects.filter(list=list_user)
-    return render(request, 'list.html',{'items':items})
+    return render(request, 'list.html',{'list':list_user})
 
 
 def new_list(request):
