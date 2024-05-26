@@ -33,7 +33,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         #他新建了一个清单，看到输入框仍然完美地居中显示
         inputbox.send_keys('testing')
         inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1:testing')
+        self.wait_for_row_in_list_table('1: testing')
         inputbox = self.browser.find_element(By.ID,'id_new_item')
         self.assertAlmostEqual(
             inputbox.location['x']+inputbox.size['width'] / 2 ,
@@ -88,7 +88,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         #待办事项表格中显示了“1: Buy flowers"
         inputbox.send_keys(Keys.ENTER)
         #time.sleep(1)
-        self.wait_for_row_in_list_table('1:Buy flowers')
+        self.wait_for_row_in_list_table('1: Buy flowers')
 
         #table = self.browser.find_element(By.ID,'id_list_table')
         #rows = table.find_elements(By.TAG_NAME,'tr')
@@ -106,8 +106,8 @@ class NewVisitorTest(StaticLiveServerTestCase):
         # rows = table.find_elements(By.TAG_NAME,'tr')
         # self.assertIn('1: Buy flowers',[row.text for row in rows])
         # self.assertIn('2: Give a gift to Lisi',[row.text for row in rows])
-        self.wait_for_row_in_list_table('1:Buy flowers')
-        self.wait_for_row_in_list_table('2:Give a gift to Lisi')
+        self.wait_for_row_in_list_table('1: Buy flowers')
+        self.wait_for_row_in_list_table('2: Give a gift to Lisi')
 
 
         #张三想知道这个网站是否会记住他的清单
@@ -126,7 +126,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         inputbox = self.browser.find_element(By.ID,'id_new_item')
         inputbox.send_keys('Buy flowers')
         inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1:Buy flowers')
+        self.wait_for_row_in_list_table('1: Buy flowers')
 
         # 他注意到清单有个唯一的URL
         zhangsan_list_url = self.browser.current_url
@@ -150,7 +150,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         inputbox = self.browser.find_element(By.ID,'id_new_item')
         inputbox.send_keys('Buy milk')
         inputbox.send_keys(Keys.ENTER)
-        self.wait_for_row_in_list_table('1:Buy milk')
+        self.wait_for_row_in_list_table('1: Buy milk')
         #王五获得了他的唯一URL
         wangwu_list_url = self.browser.current_url
         self.assertRegex(wangwu_list_url,'/lists/.+')
