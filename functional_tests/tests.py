@@ -15,7 +15,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.browser = webdriver.Chrome()
         real_server = os.environ.get('REAL_SERVER')
         if real_server:
-            self.live_server_url='http//'+real_server
+            self.live_server_url= 'http://' + real_server
 
 
     def test_layout_and_styling(self):
